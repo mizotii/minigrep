@@ -4,12 +4,8 @@ use std::process;
 use minigrep::Config;
 
 fn main() {
-    // iterates over command line arguments and puts them into a vector
-    // panics if any argument includes invalid unicode
-    let args: Vec<String> = env::args().collect(); // we usually want to annotate collect
-    
     // reads args into config
-    let config = Config::build(&args).unwrap_or_else(|err| {
+    let config = Config::build(env::args()).unwrap_or_else(|err| { // args() returns an iterator
         eprintln!("problem parsing arguments: {err}");
         process::exit(1);
     });
